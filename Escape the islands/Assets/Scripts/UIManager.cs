@@ -171,6 +171,9 @@ public class UIManager : MonoBehaviour {
 
     public void enableInteractCrosshair () {
         interactCrosshair.gameObject.SetActive (true);
+        if(crosshairImage.activeSelf){
+            toggleCrosshair();
+        }
     }
 
     public void disableInteractCrosshair () {
