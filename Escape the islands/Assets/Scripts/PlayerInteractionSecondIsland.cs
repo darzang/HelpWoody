@@ -123,7 +123,7 @@ public class PlayerInteractionSecondIsland : MonoBehaviour {
 					uiManager.GetComponent<UIManager> ().disableConversationPanel ();
 					isTalking = false;
 					conversationState = 0;
-					campfire.gameObject.SetActive(true);
+					campfire.gameObject.SetActive (true);
 				}
 				break;
 		}
@@ -132,16 +132,22 @@ public class PlayerInteractionSecondIsland : MonoBehaviour {
 	void handlePanelForSecondConversation () {
 		switch (conversationState) {
 			case 0:
-				uiManager.GetComponent<UIManager> ().setConversationText ("Oh great you have all we need for the campfire, let's get started!");
-				uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("Found anything about your brother?");
+				setConversationPanelTexts (
+					"Oh great you have all we need for the campfire, let's get started !",
+					"Found anything about your brother?"
+				);
 				break;
 			case 1:
-				uiManager.GetComponent<UIManager> ().setConversationText ("Well I didn't see any sign of him, but I've seen that the penguin king and his friends are back, maybe we should try to ask him");
-				uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("And which one is the king?");
+				setConversationPanelTexts (
+					"Well I didn't see any sign of him, but I've seen that the penguin chef and his friends are back, maybe we should try to ask him",
+					"And which one is the king?"
+				);
 				break;
 			case 2:
-				uiManager.GetComponent<UIManager> ().setConversationText ("He's... different, you should be able to notice him without too much trouble");
-				uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("Okay, I'm on it!");
+				setConversationPanelTexts (
+					"He's... different, you should be able to notice him without too much trouble",
+					"Okay, I'm on it!"
+				);
 				break;
 
 		}
@@ -152,19 +158,31 @@ public class PlayerInteractionSecondIsland : MonoBehaviour {
 			case 0:
 				//First talk
 				uiManager.GetComponent<UIManager> ().disableNegativePanel ();
-				uiManager.GetComponent<UIManager> ().setConversationText ("So, Here we are, a bit cold right ? We should start a fire before freezing to death !");
-				uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("What can I do to help ?");
+				setConversationPanelTexts (
+					"So, Here we are, a bit cold right ? We should start a fire before freezing to death !",
+					"What can I do to help ?"
+				);
 				break;
 			case 1:
 				//Player accepts to help once
-				uiManager.GetComponent<UIManager> ().setConversationText ("You could collect some sticks and somes rocks so that we can prepare the campfire, meanwhile I'll investigate on my missing brother");
-				uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("Anything else ?");
+				setConversationPanelTexts (
+					"You could collect some sticks and somes rocks so that we can prepare the campfire, meanwhile I'll investigate on my missing brother",
+					"Anything else ?"
+				);
 				break;
 			case 2:
-				uiManager.GetComponent<UIManager> ().setConversationText ("Oh yeah, my brother brought a chest with him when he left, there may be some matches inside. Find the chest and we won't freeze to death !");
-				uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("I'm on it !");
+				setConversationPanelTexts (
+					"Oh yeah, my brother brought a chest with him when he left, there may be some matches inside. Find the chest and we won't freeze to death !",
+					"I'm on it !"
+				);
 				break;
 
 		}
+	}
+
+	void setConversationPanelTexts (string main, string positive, string negative = "") {
+		uiManager.GetComponent<UIManager> ().setConversationText (main);
+		uiManager.GetComponent<UIManager> ().setPositiveAnswerText (positive);
+		uiManager.GetComponent<UIManager> ().setNegativeAnswerText (negative);
 	}
 }

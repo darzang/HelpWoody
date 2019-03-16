@@ -60,9 +60,11 @@ public class PlayerInteractionFirstIsland : MonoBehaviour {
         handleUserAnswerForFirstConversation ();
     }
     void handleSecondConversation () {
-        uiManager.GetComponent<UIManager> ().setConversationText ("Great, I see you have enough food for us to go, are you ready ?");
-        uiManager.GetComponent<UIManager> ().setNegativeAnswerText ("Just give me a few minutes");
-        uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("Let's find your brother!");
+        setConversationPanelTexts (
+            "Great, I see you have enough food for us to go, are you ready ?",
+            "Let's find your brother!",
+            "Just give me a few minutes"
+        );
         uiManager.GetComponent<UIManager> ().enableNegativePanel ();
 
         if (Input.GetButtonDown ("ButtonE")) {
@@ -125,35 +127,51 @@ public class PlayerInteractionFirstIsland : MonoBehaviour {
             case 0:
                 //First talk
                 uiManager.GetComponent<UIManager> ().enableNegativePanel ();
-                uiManager.GetComponent<UIManager> ().setConversationText ("Hey you, out there on the road, always doing what you’re told, can you help me?");
-                uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("Tell me more?");
-                uiManager.GetComponent<UIManager> ().setNegativeAnswerText ("Sorry I have better things to do");
+                setConversationPanelTexts (
+                    "Hey you, out there on the road, always doing what you’re told, can you help me?",
+                    "Tell me more?",
+                    "Sorry I have better things to do"
+                );
                 break;
             case 1:
                 //Player accepts to help once
                 uiManager.GetComponent<UIManager> ().enableNegativePanel ();
-                uiManager.GetComponent<UIManager> ().setConversationText ("I need someone to help me find my brother. He went on a mission on the snowy island a week ago and didn’t come back… I’m afraid something terrible could have happened to him, we need to hurry!");
-                uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("Sure, what do you need ?");
-                uiManager.GetComponent<UIManager> ().setNegativeAnswerText ("Seems too much dangerous to me");
+                setConversationPanelTexts (
+                    "I need someone to help me find my brother. He went on a mission on the snowy island a week ago and didn’t come back… I’m afraid something terrible could have happened to him, we need to hurry!",
+                    "Sure, what do you need ?",
+                    "Seems too much dangerous to meo"
+                );
                 break;
             case 2:
                 // Player accepts to help twice
                 uiManager.GetComponent<UIManager> ().disableNegativePanel ();
-                uiManager.GetComponent<UIManager> ().setConversationText ("I’ll get the boat ready, meanwhile you could look for some food to bring with us. There’s some mushrooms around the forest, and coconut near the beach. Don’t be afraid to throw rocks at the coconuts to make them fall.");
-                uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("Well let's go then!");
+                setConversationPanelTexts (
+                    "I’ll get the boat ready, meanwhile you could look for some food to bring with us. There’s some mushrooms around the forest, and coconut near the beach. Don’t be afraid to throw rocks at the coconuts to make them fall.",
+                    "Well let's go then!"
+                );
                 break;
             case 3:
                 uiManager.GetComponent<UIManager> ().disableNegativePanel ();
-                uiManager.GetComponent<UIManager> ().setConversationText ("Okay then, good luck finding a way out of here without the help of the only man owning a boat here!");
-                uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("Hmm.. You were saying ?");
+                setConversationPanelTexts (
+                    "Okay then, good luck finding a way out of here without the help of the only man owning a boat here!",
+                    "Hmm.. You were saying ?!"
+                );
                 break;
             case 4:
                 // Woodys talks about the map before the end of the conversation
                 uiManager.GetComponent<UIManager> ().disableNegativePanel ();
-                uiManager.GetComponent<UIManager> ().setConversationText ("Oh and I almost forgot, I lost my map a few days ago in the forest, it could be useful for our journey if you could manage to find it");
-                uiManager.GetComponent<UIManager> ().setPositiveAnswerText ("I'm on it !");
+                setConversationPanelTexts (
+                    "Oh and I almost forgot, I lost my map a few days ago in the forest, it could be useful for our journey if you could manage to find it",
+                    "I'm on it !"
+                );
                 break;
 
         }
+    }
+
+    void setConversationPanelTexts (string main, string positive, string negative = "") {
+        uiManager.GetComponent<UIManager> ().setConversationText (main);
+        uiManager.GetComponent<UIManager> ().setPositiveAnswerText (positive);
+        uiManager.GetComponent<UIManager> ().setNegativeAnswerText (negative);
     }
 }
