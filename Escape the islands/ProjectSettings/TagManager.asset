@@ -9,6 +9,11 @@ TagManager:
   - Coconut
   - Woody
   - QuestText
+  - FirstInteractionPanel
+  - ConversationPanel
+  - NegativeAnswerPanel
+  - PositiveAnswerPanel
+  - PenguinChef
   layers:
   - Default
   - TransparentFX
