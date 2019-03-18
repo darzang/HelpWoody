@@ -33,44 +33,52 @@ public class PlayerInteractionSecondIsland : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// If we have what it takes to go to next step
+		// If the player picked up enough materials to advance in the quest
 		if (Inventory.rocks >= 8 && Inventory.sticks >= 8 || Input.GetButtonDown ("ButtonQ")) {
 			if (questState == 0) {
 				questState = 1;
 			}
 		}
-
 		if (isTalking) {
-			if (GameObject.Find ("Player").GetComponent<CharacterController> ().enabled) {
-				GameObject.Find ("Player").GetComponent<CharacterController> ().enabled = false;
-			}
+			GameObject.Find ("Player").GetComponent<CharacterController> ().enabled = false;
 			HandleConversation ();
 		} else {
 			RaycastHit hit;
+
+			// If we're in front of Woody
 			if (Physics.Raycast (transform.position, transform.forward, out hit, 3) && hit.collider.gameObject.tag == "Woody" && questState != 2) {
 				uiManager.GetComponent<UIManager> ().enableInteractCrosshair ();
 				if (Input.GetButtonDown ("ButtonR")) {
-					isTalking = true;
-					uiManager.GetComponent<UIManager> ().disableInteractCrosshair ();
-					uiManager.GetComponent<UIManager> ().disableNoticePanel ();
-					uiManager.GetComponent<UIManager> ().enableConversationPanel ();
+					LaunchConversation ();
 				}
-			} else if (Physics.Raycast (transform.position, transform.forward, out hit, 6) && hit.collider.gameObject.name == "PenguinChef") {
-				Debug.Log ("facing penguin");
-				if (questState == 2) {
-					uiManager.GetComponent<UIManager> ().enableInteractCrosshair ();
-					if (Input.GetButtonDown ("ButtonR")) {
-						isTalking = true;
-						uiManager.GetComponent<UIManager> ().disableInteractCrosshair ();
-						uiManager.GetComponent<UIManager> ().disableNoticePanel ();
-						uiManager.GetComponent<UIManager> ().enableConversationPanel ();
-					}
+			}
+			// If we're facing the penguin chef
+			else if (Physics.Raycast (transform.position, transform.forward, out hit, 6) && hit.collider.gameObject.name == "PenguinChef" && questState == 2) {
+				uiManager.GetComponent<UIManager> ().enableInteractCrosshair ();
+				if (Input.GetButtonDown ("ButtonR")) {
+					LaunchConversation ();
 				}
-
-			} else {
+			}
+			// If we're facing the first invisible wall before being supposed to
+			else if (Physics.Raycast (transform.position, transform.forward, out hit, 3) && hit.collider.gameObject.name == "FirstWallCollider") {
+				uiManager.GetComponent<UIManager>().enableNoticePanelWithTextAndSize("I think I should go collect what Woody asked me before going further...", 20);
+			}
+			// If we're facing the second invisible wall before being supposed to
+			else if (Physics.Raycast (transform.position, transform.forward, out hit, 3) && hit.collider.gameObject.name == "SecondWallCollider") { 
+				uiManager.GetComponent<UIManager>().enableNoticePanelWithTextAndSize("I think I should go talk to the penguin chef before going further...", 20);
+			}
+			// Otherwise
+			 else {
 				uiManager.GetComponent<UIManager> ().disableInteractCrosshair ();
 			}
 		}
+	}
+
+	void LaunchConversation () {
+		isTalking = true;
+		uiManager.GetComponent<UIManager> ().disableInteractCrosshair ();
+		uiManager.GetComponent<UIManager> ().disableNoticePanel ();
+		uiManager.GetComponent<UIManager> ().enableConversationPanel ();
 	}
 
 	void HandleFirstConversation () {
@@ -170,7 +178,7 @@ public class PlayerInteractionSecondIsland : MonoBehaviour {
 					isTalking = false;
 					conversationState = 0;
 					questState = 3;
-					Destroy(secondWall);
+					Destroy (secondWall);
 				}
 				break;
 		}

@@ -166,13 +166,13 @@ public class UIManager : MonoBehaviour {
     }
 
     public void MatchesPickup () {
-        inventoryMatches.GetComponentInChildren<Text>().text= "1";
+        inventoryMatches.GetComponentInChildren<Text> ().text = "1";
     }
 
     public void enableInteractCrosshair () {
         interactCrosshair.gameObject.SetActive (true);
-        if(crosshairImage.activeSelf){
-            toggleCrosshair();
+        if (crosshairImage.activeSelf) {
+            toggleCrosshair ();
         }
     }
 
@@ -186,6 +186,12 @@ public class UIManager : MonoBehaviour {
         noticePanel.GetComponentInChildren<Text> ().fontSize = 41;
     }
 
+    public void enableNoticePanelWithTextAndSize (string text, int size) {
+        noticePanel.GetComponentInChildren<Text> ().text = text;
+        noticePanel.GetComponentInChildren<Text> ().fontSize = size;
+        noticePanel.SetActive (true);
+
+    }
     public void disableNoticePanel () {
         noticePanel.SetActive (false);
 

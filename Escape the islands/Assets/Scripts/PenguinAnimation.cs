@@ -24,9 +24,7 @@ public class PenguinAnimation : MonoBehaviour {
 		targetsReady = true;
 		int targetIndex = Random.Range (0, Pathpoints.transform.childCount);
 		targetTransform = targets[targetIndex];
-		Debug.Log ("Target is at " + targetTransform.position);
 		this.transform.Rotate (0, 90, 0);
-
 	}
 
 	void Update () {
@@ -38,8 +36,6 @@ public class PenguinAnimation : MonoBehaviour {
 				targetTransform = targets[targetIndex];
 				transform.LookAt (targetTransform);
 				this.transform.Rotate (0, 90, 0);
-				Debug.Log ("New target");
-
 			} else {
 				transform.position = Vector3.MoveTowards (transform.position, targetTransform.position, step);
 				if (this.transform.position.y > targetTransform.position.y) {
