@@ -9,10 +9,13 @@ public class PenguinAnimation : MonoBehaviour {
 	private Transform targetTransform;
 	private bool targetsReady = false;
 
+	private Animation anim = new Animation ();
+
 	private float speed = 5;
 
 	void Start () {
 
+		anim = this.gameObject.GetComponent<Animation> ();
 		Pathpoints = GameObject.Find ("PathPoints");
 		targets = new Transform[Pathpoints.transform.childCount];
 		for (int i = 0; i < Pathpoints.transform.childCount; i++) {
@@ -27,9 +30,8 @@ public class PenguinAnimation : MonoBehaviour {
 	}
 
 	void Update () {
+		float step = speed * Time.deltaTime;
 		if (targetsReady) {
-
-			float step = speed * Time.deltaTime;
 
 			if (targetTransform.position == this.transform.position) {
 				int targetIndex = Random.Range (0, Pathpoints.transform.childCount);
@@ -40,6 +42,13 @@ public class PenguinAnimation : MonoBehaviour {
 
 			} else {
 				transform.position = Vector3.MoveTowards (transform.position, targetTransform.position, step);
+				if (this.transform.position.y > targetTransform.position.y) {
+					anim.Play ("run");
+					speed= 10;
+				} else {
+					anim.Play ("walk");
+					speed = 5;
+				}
 			}
 
 		}
