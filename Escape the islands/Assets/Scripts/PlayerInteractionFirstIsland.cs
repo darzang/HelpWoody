@@ -68,6 +68,7 @@ public class PlayerInteractionFirstIsland : MonoBehaviour {
         uiManager.GetComponent<UIManager> ().enableNegativePanel ();
 
         if (Input.GetButtonDown ("ButtonE")) {
+            uiManager.GetComponent<UIManager>().CloseEyes();
             SceneManager.LoadScene ("SecondIsland");
         } else if (Input.GetButtonDown ("ButtonQ")) {
             uiManager.GetComponent<UIManager> ().disableConversationPanel ();

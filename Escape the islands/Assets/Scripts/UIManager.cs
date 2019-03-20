@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour {
     void Start () {
         eyelidBottom = GameObject.Find ("EyelidBottom");
         eyelidTop = GameObject.Find ("EyelidTop");
+        OpenEyes();
 
         if (SceneManager.GetActiveScene ().name == "FirstIsland") {
             timeLeft = 4;
@@ -71,9 +72,7 @@ public class UIManager : MonoBehaviour {
         // QuestPanel Management
 
         if (Input.GetButtonDown ("ButtonO")) {
-            eyelidBottom.GetComponent<Animation> ().Play ("EyelidBottomBlink");
-            eyelidTop.GetComponent<Animation> ().Play ("EyelidTopBlink");
-
+            Blink ();
             if (PlayerInteractionFirstIsland.questStarted) {
                 questPanel.SetActive (!questPanel.activeSelf);
             }
@@ -238,5 +237,20 @@ public class UIManager : MonoBehaviour {
     public void toggleCrosshair () {
         crosshairImage.gameObject.SetActive (!crosshairImage.gameObject.activeSelf);
     }
+    public void Blink () {
+        eyelidBottom.GetComponent<Animation> ().Play ("EyelidBottomBlink");
+        eyelidTop.GetComponent<Animation> ().Play ("EyelidTopBlink");
+    }
+    public void OpenEyes () {
+        eyelidBottom.GetComponent<Animation> ().Play ("EyelidBottomOpen");
+        eyelidTop.GetComponent<Animation> ().Play ("EyelidTopOpen");
+    }
+
+    public void CloseEyes () {
+        eyelidBottom.GetComponent<Animation> ().Play ("EyelidBottomClose");
+        eyelidTop.GetComponent<Animation> ().Play ("EyelidTopClose");
+    }
+
+
 
 }
