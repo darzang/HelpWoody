@@ -24,6 +24,9 @@ public class UIManager : MonoBehaviour {
     public GameObject inventoryMatches;
     public GameObject inventoryFishes;
 
+    public GameObject eyelidTop;
+    public GameObject eyelidBottom;
+
     public Text coconutAmount;
     public Text mushroomAmount;
     public GameObject interactCrosshair;
@@ -37,6 +40,9 @@ public class UIManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        eyelidBottom = GameObject.Find ("EyelidBottom");
+        eyelidTop = GameObject.Find ("EyelidTop");
+
         if (SceneManager.GetActiveScene ().name == "FirstIsland") {
             timeLeft = 4;
             noticePanel.GetComponentInChildren<Text> ().text = "Press H to open the controls panel";
@@ -65,6 +71,9 @@ public class UIManager : MonoBehaviour {
         // QuestPanel Management
 
         if (Input.GetButtonDown ("ButtonO")) {
+            eyelidBottom.GetComponent<Animation> ().Play ("EyelidBottomBlink");
+            eyelidTop.GetComponent<Animation> ().Play ("EyelidTopBlink");
+
             if (PlayerInteractionFirstIsland.questStarted) {
                 questPanel.SetActive (!questPanel.activeSelf);
             }
